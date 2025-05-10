@@ -1,0 +1,3476 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "行為追蹤服務",
+        "title": "Tracking Service",
+        "termsOfService": "http://your-terms-of-service.url",
+        "contact": {
+            "name": "ddjoanna",
+            "url": "https://github.com/ddjoanna/web-go-tracking-service",
+            "email": "joann.chang0722@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/admin/apps": {
+            "get": {
+                "description": "取得所有應用程式",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "取得所有應用程式",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含所有應用程式陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新應用程式",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "建立新應用程式",
+                "parameters": [
+                    {
+                        "description": "新增應用程式資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新應用程式資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/apps/{app_id}": {
+            "get": {
+                "description": "取得指定應用程式詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "取得指定應用程式詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "應用程式 ID",
+                        "name": "app_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定應用程式",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "更新指定應用程式",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "應用程式 ID",
+                        "name": "app_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新應用程式資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除指定應用程式",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "刪除指定應用程式",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "應用程式 ID",
+                        "name": "app_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/apps/{app_id}/api-keys/{api_key_id}": {
+            "delete": {
+                "description": "刪除應用程式 API 密鑰",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "刪除應用程式 API 密鑰",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "應用程式 ID",
+                        "name": "app_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "應用程式 API 密鑰 ID",
+                        "name": "api_key_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/apps/{app_id}/api_keys": {
+            "post": {
+                "description": "建立應用程式 API 密鑰",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Application"
+                ],
+                "summary": "建立應用程式 API 密鑰",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "應用程式 ID",
+                        "name": "app_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新應用程式 API 密鑰",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.ApplicationAPIKey"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/apps/{app_id}/events/{event_id}/fields/{field_id}": {
+            "get": {
+                "description": "取得指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "取得指定事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "更新指定事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新事件欄位資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/events": {
+            "get": {
+                "description": "取得所有事件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "取得所有事件",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含所有事件陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "建立新事件",
+                "parameters": [
+                    {
+                        "description": "新增事件資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新事件資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/events/{event_id}": {
+            "get": {
+                "description": "取得指定事件詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "取得指定事件詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定事件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "更新指定事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新事件資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除指定事件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "刪除指定事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/events/{event_id}/fields": {
+            "get": {
+                "description": "取得指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "取得指定事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新事件欄位",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "建立新事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "新增事件欄位資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新事件欄位資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/events/{event_id}/fields/{field_id}": {
+            "delete": {
+                "description": "刪除指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Event"
+                ],
+                "summary": "刪除指定事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/platforms": {
+            "get": {
+                "description": "取得所有平台",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Platform"
+                ],
+                "summary": "取得所有平台",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含所有平台陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Platform"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新平台",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Platform"
+                ],
+                "summary": "建立新平台",
+                "parameters": [
+                    {
+                        "description": "新增平台資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Platform"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新平台資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Platform"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/platforms/{platform_id}": {
+            "get": {
+                "description": "取得指定平台詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Platform"
+                ],
+                "summary": "取得指定平台詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "平台 ID",
+                        "name": "platform_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Platform"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/tenants": {
+            "get": {
+                "description": "取得所有租戶",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Tenant"
+                ],
+                "summary": "取得所有租戶",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含所有租戶陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Tenant"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新租戶",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Tenant"
+                ],
+                "summary": "建立新租戶",
+                "parameters": [
+                    {
+                        "description": "新增租戶資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Tenant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新租戶資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Tenant"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/tenants/{tenant_id}": {
+            "get": {
+                "description": "取得指定租戶詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Tenant"
+                ],
+                "summary": "取得指定租戶詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "租戶 ID",
+                        "name": "tenant_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Tenant"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定租戶",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin/Tenant"
+                ],
+                "summary": "更新指定租戶",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "租戶 ID",
+                        "name": "tenant_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新租戶資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.Tenant"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/platforms": {
+            "get": {
+                "description": "取得所有平台的名稱列表",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Platform"
+                ],
+                "summary": "取得平台列表",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含平台陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Platform"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events": {
+            "get": {
+                "description": "取得指定應用程式的事件列表",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "取得事件列表",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含事件陣列",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "建立新事件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "建立事件",
+                "parameters": [
+                    {
+                        "description": "新增事件資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.CreateEventRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新事件資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events/{event_id}": {
+            "get": {
+                "description": "取得指定事件的詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "取得事件詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含事件詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Event"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定事件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "更新事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新事件資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.UpdateEventRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除指定事件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "刪除事件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events/{event_id}/event_logs": {
+            "post": {
+                "description": "建立新事件日誌",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "建立事件日誌",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "新增事件日誌資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.CreateEventLogRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新事件日誌資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventLog"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events/{event_id}/fields": {
+            "post": {
+                "description": "建立新事件欄位",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "建立事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "新增事件欄位資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.CreateEventFieldRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應：新增事件欄位資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events/{event_id}/fields/{field_id}": {
+            "get": {
+                "description": "取得指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "取得事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應：應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.EventField"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "更新事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新事件欄位資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.UpdateEventFieldRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除指定事件欄位",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Event"
+                ],
+                "summary": "刪除事件欄位",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "欄位 ID",
+                        "name": "field_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/events/{event_id}/sessions": {
+            "post": {
+                "description": "建立新會話",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Session"
+                ],
+                "summary": "建立會話",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事件 ID",
+                        "name": "event_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "新增會話資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.CreateSessionRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含新會話資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Session"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/profile": {
+            "get": {
+                "description": "取得指定應用程式的詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Application"
+                ],
+                "summary": "取得應用程式詳細資料",
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含應用程式詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Application"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant/sessions/{session_id}": {
+            "get": {
+                "description": "取得指定會話的詳細資料",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Session"
+                ],
+                "summary": "取得會話詳細資料",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "會話 ID",
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功回應，包含會話詳細資料",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/tracking-service_internal_datastructures.BaseResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/tracking-service_internal_datastructures.Session"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "更新指定會話",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Session"
+                ],
+                "summary": "更新會話",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "會話 ID",
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "更新會話資料",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.UpdateSessionRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除會話",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tenant/Session"
+                ],
+                "summary": "刪除會話",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "會話 ID",
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "成功，無內容回應"
+                    },
+                    "400": {
+                        "description": "錯誤回應：無效請求",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "401": {
+                        "description": "錯誤回應：未授權",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "403": {
+                        "description": "錯誤回應：禁止訪問",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "404": {
+                        "description": "錯誤回應：找不到資源",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "409": {
+                        "description": "錯誤回應：重複鍵",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    },
+                    "500": {
+                        "description": "錯誤回應：伺服器錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "tracking-service_internal_datastructures.Application": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "tenant_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.ApplicationAPIKey": {
+            "type": "object",
+            "properties": {
+                "api_key": {
+                    "type": "string"
+                },
+                "application_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.BaseResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "msg": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.CreateEventFieldRequest": {
+            "type": "object",
+            "required": [
+                "data_type",
+                "name"
+            ],
+            "properties": {
+                "data_type": {
+                    "type": "string",
+                    "enum": [
+                        "string",
+                        "int",
+                        "float",
+                        "boolean",
+                        "datetime",
+                        "json"
+                    ],
+                    "example": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Button ID"
+                },
+                "event_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "is_required": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "button_id"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.CreateEventLogRequest": {
+            "type": "object",
+            "required": [
+                "platform_id",
+                "properties",
+                "session_id"
+            ],
+            "properties": {
+                "application_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "event_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "platform_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "properties": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "session_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.CreateEventRequest": {
+            "type": "object",
+            "required": [
+                "description",
+                "is_active",
+                "name",
+                "platform_id"
+            ],
+            "properties": {
+                "application_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Click on CTA"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "click_button"
+                },
+                "platform_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.CreateSessionRequest": {
+            "type": "object",
+            "required": [
+                "platform_id",
+                "session_key",
+                "started_at"
+            ],
+            "properties": {
+                "application_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "ended_at": {
+                    "type": "string",
+                    "example": "2007-01-02 15:04:05"
+                },
+                "ip_address": {
+                    "type": "string",
+                    "example": "127.0.0.1"
+                },
+                "platform_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "session_key": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "started_at": {
+                    "type": "string",
+                    "example": "2006-01-02 15:04:05"
+                },
+                "user_agent": {
+                    "type": "string",
+                    "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.ErrorResponseWithCode": {
+            "type": "object",
+            "properties": {
+                "details": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean",
+                    "default": false
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.Event": {
+            "type": "object",
+            "properties": {
+                "application_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "platform_id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.EventField": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "data_type": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_required": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.EventLog": {
+            "type": "object",
+            "properties": {
+                "application_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "platform_id": {
+                    "type": "integer"
+                },
+                "properties": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "session_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.Platform": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.Session": {
+            "type": "object",
+            "properties": {
+                "application_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "ended_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "ip_address": {
+                    "type": "string"
+                },
+                "platform_id": {
+                    "type": "integer"
+                },
+                "session_key": {
+                    "type": "string"
+                },
+                "started_at": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_agent": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.Tenant": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.UpdateEventFieldRequest": {
+            "type": "object",
+            "required": [
+                "data_type",
+                "name"
+            ],
+            "properties": {
+                "data_type": {
+                    "type": "string",
+                    "enum": [
+                        "string",
+                        "int",
+                        "float",
+                        "boolean",
+                        "datetime",
+                        "json"
+                    ],
+                    "example": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Button ID"
+                },
+                "event_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "is_required": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "button_id"
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.UpdateEventRequest": {
+            "type": "object",
+            "required": [
+                "description",
+                "is_active",
+                "name",
+                "platform_id"
+            ],
+            "properties": {
+                "application_id": {
+                    "type": "string",
+                    "example": "1231231123"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Click on CTA"
+                },
+                "is_active": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "name": {
+                    "type": "string",
+                    "example": "click_button"
+                },
+                "platform_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "tracking-service_internal_datastructures.UpdateSessionRequest": {
+            "type": "object",
+            "properties": {
+                "ended_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

@@ -1,0 +1,2249 @@
+basePath: /
+definitions:
+  tracking-service_internal_datastructures.Application:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      tenant_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.ApplicationAPIKey:
+    properties:
+      api_key:
+        type: string
+      application_id:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.BaseResponse:
+    properties:
+      data: {}
+      msg:
+        type: string
+      success:
+        default: true
+        type: boolean
+    type: object
+  tracking-service_internal_datastructures.CreateEventFieldRequest:
+    properties:
+      data_type:
+        enum:
+        - string
+        - int
+        - float
+        - boolean
+        - datetime
+        - json
+        example: string
+        type: string
+      description:
+        example: Button ID
+        type: string
+      event_id:
+        example: "1231231123"
+        type: string
+      is_required:
+        example: true
+        type: boolean
+      name:
+        example: button_id
+        type: string
+    required:
+    - data_type
+    - name
+    type: object
+  tracking-service_internal_datastructures.CreateEventLogRequest:
+    properties:
+      application_id:
+        example: "1231231123"
+        type: string
+      event_id:
+        example: "1231231123"
+        type: string
+      platform_id:
+        example: 1
+        type: integer
+      properties:
+        additionalProperties: true
+        type: object
+      session_id:
+        example: "1231231123"
+        type: string
+    required:
+    - platform_id
+    - properties
+    - session_id
+    type: object
+  tracking-service_internal_datastructures.CreateEventRequest:
+    properties:
+      application_id:
+        example: "1231231123"
+        type: string
+      description:
+        example: Click on CTA
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: click_button
+        type: string
+      platform_id:
+        example: 1
+        type: integer
+    required:
+    - description
+    - is_active
+    - name
+    - platform_id
+    type: object
+  tracking-service_internal_datastructures.CreateSessionRequest:
+    properties:
+      application_id:
+        example: "1231231123"
+        type: string
+      ended_at:
+        example: "2007-01-02 15:04:05"
+        type: string
+      ip_address:
+        example: 127.0.0.1
+        type: string
+      platform_id:
+        example: 1
+        type: integer
+      session_key:
+        example: "1231231123"
+        type: string
+      started_at:
+        example: "2006-01-02 15:04:05"
+        type: string
+      user_agent:
+        example: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+          like Gecko) Chrome/108.0.0.0 Safari/537.36
+        type: string
+      user_id:
+        example: "1231231123"
+        type: string
+    required:
+    - platform_id
+    - session_key
+    - started_at
+    type: object
+  tracking-service_internal_datastructures.ErrorResponseWithCode:
+    properties:
+      details:
+        additionalProperties:
+          type: string
+        type: object
+      msg:
+        type: string
+      success:
+        default: false
+        type: boolean
+    type: object
+  tracking-service_internal_datastructures.Event:
+    properties:
+      application_id:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      platform_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.EventField:
+    properties:
+      created_at:
+        type: string
+      data_type:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      event_id:
+        type: string
+      id:
+        type: string
+      is_required:
+        type: boolean
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.EventLog:
+    properties:
+      application_id:
+        type: string
+      created_at:
+        type: string
+      event_id:
+        type: string
+      id:
+        type: string
+      platform_id:
+        type: integer
+      properties:
+        additionalProperties: true
+        type: object
+      session_id:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.Platform:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.Session:
+    properties:
+      application_id:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      ended_at:
+        type: string
+      id:
+        type: string
+      ip_address:
+        type: string
+      platform_id:
+        type: integer
+      session_key:
+        type: string
+      started_at:
+        type: string
+      updated_at:
+        type: string
+      user_agent:
+        type: string
+      user_id:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.Tenant:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  tracking-service_internal_datastructures.UpdateEventFieldRequest:
+    properties:
+      data_type:
+        enum:
+        - string
+        - int
+        - float
+        - boolean
+        - datetime
+        - json
+        example: string
+        type: string
+      description:
+        example: Button ID
+        type: string
+      event_id:
+        example: "1231231123"
+        type: string
+      is_required:
+        example: true
+        type: boolean
+      name:
+        example: button_id
+        type: string
+    required:
+    - data_type
+    - name
+    type: object
+  tracking-service_internal_datastructures.UpdateEventRequest:
+    properties:
+      application_id:
+        example: "1231231123"
+        type: string
+      description:
+        example: Click on CTA
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: click_button
+        type: string
+      platform_id:
+        example: 1
+        type: integer
+    required:
+    - description
+    - is_active
+    - name
+    - platform_id
+    type: object
+  tracking-service_internal_datastructures.UpdateSessionRequest:
+    properties:
+      ended_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: joann.chang0722@gmail.com
+    name: ddjoanna
+    url: https://github.com/ddjoanna/web-go-tracking-service
+  description: 行為追蹤服務
+  termsOfService: http://your-terms-of-service.url
+  title: Tracking Service
+  version: "1.0"
+paths:
+  /admin/apps:
+    get:
+      description: 取得所有應用程式
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含所有應用程式陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得所有應用程式
+      tags:
+      - Admin/Application
+    post:
+      consumes:
+      - application/json
+      description: 建立新應用程式
+      parameters:
+      - description: 新增應用程式資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新應用程式資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立新應用程式
+      tags:
+      - Admin/Application
+  /admin/apps/{app_id}:
+    delete:
+      description: 刪除指定應用程式
+      parameters:
+      - description: 應用程式 ID
+        in: path
+        name: app_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除指定應用程式
+      tags:
+      - Admin/Application
+    get:
+      description: 取得指定應用程式詳細資料
+      parameters:
+      - description: 應用程式 ID
+        in: path
+        name: app_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定應用程式詳細資料
+      tags:
+      - Admin/Application
+    put:
+      description: 更新指定應用程式
+      parameters:
+      - description: 應用程式 ID
+        in: path
+        name: app_id
+        required: true
+        type: string
+      - description: 更新應用程式資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新指定應用程式
+      tags:
+      - Admin/Application
+  /admin/apps/{app_id}/api-keys/{api_key_id}:
+    delete:
+      description: 刪除應用程式 API 密鑰
+      parameters:
+      - description: 應用程式 ID
+        in: path
+        name: app_id
+        required: true
+        type: string
+      - description: 應用程式 API 密鑰 ID
+        in: path
+        name: api_key_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除應用程式 API 密鑰
+      tags:
+      - Admin/Application
+  /admin/apps/{app_id}/api_keys:
+    post:
+      description: 建立應用程式 API 密鑰
+      parameters:
+      - description: 應用程式 ID
+        in: path
+        name: app_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新應用程式 API 密鑰
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.ApplicationAPIKey'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立應用程式 API 密鑰
+      tags:
+      - Admin/Application
+  /admin/apps/{app_id}/events/{event_id}/fields/{field_id}:
+    get:
+      description: 取得指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定事件欄位
+      tags:
+      - Admin/Event
+    put:
+      description: 更新指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      - description: 更新事件欄位資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新指定事件欄位
+      tags:
+      - Admin/Event
+  /admin/events:
+    get:
+      description: 取得所有事件
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含所有事件陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得所有事件
+      tags:
+      - Admin/Event
+    post:
+      consumes:
+      - application/json
+      description: 建立新事件
+      parameters:
+      - description: 新增事件資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新事件資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立新事件
+      tags:
+      - Admin/Event
+  /admin/events/{event_id}:
+    delete:
+      description: 刪除指定事件
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除指定事件
+      tags:
+      - Admin/Event
+    get:
+      description: 取得指定事件詳細資料
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定事件詳細資料
+      tags:
+      - Admin/Event
+    put:
+      description: 更新指定事件
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 更新事件資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新指定事件
+      tags:
+      - Admin/Event
+  /admin/events/{event_id}/fields:
+    get:
+      description: 取得指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定事件欄位
+      tags:
+      - Admin/Event
+    post:
+      consumes:
+      - application/json
+      description: 建立新事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 新增事件欄位資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新事件欄位資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立新事件欄位
+      tags:
+      - Admin/Event
+  /admin/events/{event_id}/fields/{field_id}:
+    delete:
+      description: 刪除指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除指定事件欄位
+      tags:
+      - Admin/Event
+  /admin/platforms:
+    get:
+      description: 取得所有平台
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含所有平台陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Platform'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得所有平台
+      tags:
+      - Admin/Platform
+    post:
+      consumes:
+      - application/json
+      description: 建立新平台
+      parameters:
+      - description: 新增平台資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Platform'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新平台資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Platform'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立新平台
+      tags:
+      - Admin/Platform
+  /admin/platforms/{platform_id}:
+    get:
+      description: 取得指定平台詳細資料
+      parameters:
+      - description: 平台 ID
+        in: path
+        name: platform_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Platform'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定平台詳細資料
+      tags:
+      - Admin/Platform
+  /admin/tenants:
+    get:
+      description: 取得所有租戶
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含所有租戶陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Tenant'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得所有租戶
+      tags:
+      - Admin/Tenant
+    post:
+      consumes:
+      - application/json
+      description: 建立新租戶
+      parameters:
+      - description: 新增租戶資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Tenant'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新租戶資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Tenant'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立新租戶
+      tags:
+      - Admin/Tenant
+  /admin/tenants/{tenant_id}:
+    get:
+      description: 取得指定租戶詳細資料
+      parameters:
+      - description: 租戶 ID
+        in: path
+        name: tenant_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Tenant'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得指定租戶詳細資料
+      tags:
+      - Admin/Tenant
+    put:
+      description: 更新指定租戶
+      parameters:
+      - description: 租戶 ID
+        in: path
+        name: tenant_id
+        required: true
+        type: string
+      - description: 更新租戶資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.Tenant'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新指定租戶
+      tags:
+      - Admin/Tenant
+  /platforms:
+    get:
+      description: 取得所有平台的名稱列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含平台陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Platform'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得平台列表
+      tags:
+      - Tenant/Platform
+  /tenant/events:
+    get:
+      description: 取得指定應用程式的事件列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含事件陣列
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+                  type: array
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得事件列表
+      tags:
+      - Tenant/Event
+    post:
+      consumes:
+      - application/json
+      description: 建立新事件
+      parameters:
+      - description: 新增事件資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.CreateEventRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新事件資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立事件
+      tags:
+      - Tenant/Event
+  /tenant/events/{event_id}:
+    delete:
+      description: 刪除指定事件
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除事件
+      tags:
+      - Tenant/Event
+    get:
+      description: 取得指定事件的詳細資料
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含事件詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Event'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得事件詳細資料
+      tags:
+      - Tenant/Event
+    put:
+      description: 更新指定事件
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 更新事件資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.UpdateEventRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新事件
+      tags:
+      - Tenant/Event
+  /tenant/events/{event_id}/event_logs:
+    post:
+      description: 建立新事件日誌
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 新增事件日誌資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.CreateEventLogRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新事件日誌資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.EventLog'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立事件日誌
+      tags:
+      - Tenant/Event
+  /tenant/events/{event_id}/fields:
+    post:
+      consumes:
+      - application/json
+      description: 建立新事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 新增事件欄位資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.CreateEventFieldRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應：新增事件欄位資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立事件欄位
+      tags:
+      - Tenant/Event
+  /tenant/events/{event_id}/fields/{field_id}:
+    delete:
+      description: 刪除指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除事件欄位
+      tags:
+      - Tenant/Event
+    get:
+      description: 取得指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應：應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.EventField'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得事件欄位
+      tags:
+      - Tenant/Event
+    put:
+      description: 更新指定事件欄位
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 欄位 ID
+        in: path
+        name: field_id
+        required: true
+        type: string
+      - description: 更新事件欄位資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.UpdateEventFieldRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新事件欄位
+      tags:
+      - Tenant/Event
+  /tenant/events/{event_id}/sessions:
+    post:
+      description: 建立新會話
+      parameters:
+      - description: 事件 ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: 新增會話資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.CreateSessionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含新會話資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Session'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 建立會話
+      tags:
+      - Tenant/Session
+  /tenant/profile:
+    get:
+      description: 取得指定應用程式的詳細資料
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含應用程式詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Application'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得應用程式詳細資料
+      tags:
+      - Tenant/Application
+  /tenant/sessions/{session_id}:
+    delete:
+      description: 刪除會話
+      parameters:
+      - description: 會話 ID
+        in: path
+        name: session_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 刪除會話
+      tags:
+      - Tenant/Session
+    get:
+      description: 取得指定會話的詳細資料
+      parameters:
+      - description: 會話 ID
+        in: path
+        name: session_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功回應，包含會話詳細資料
+          schema:
+            allOf:
+            - $ref: '#/definitions/tracking-service_internal_datastructures.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/tracking-service_internal_datastructures.Session'
+              type: object
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 取得會話詳細資料
+      tags:
+      - Tenant/Session
+    put:
+      description: 更新指定會話
+      parameters:
+      - description: 會話 ID
+        in: path
+        name: session_id
+        required: true
+        type: string
+      - description: 更新會話資料
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/tracking-service_internal_datastructures.UpdateSessionRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: 成功，無內容回應
+        "400":
+          description: 錯誤回應：無效請求
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "401":
+          description: 錯誤回應：未授權
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "403":
+          description: 錯誤回應：禁止訪問
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "404":
+          description: 錯誤回應：找不到資源
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "409":
+          description: 錯誤回應：重複鍵
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+        "500":
+          description: 錯誤回應：伺服器錯誤
+          schema:
+            $ref: '#/definitions/tracking-service_internal_datastructures.ErrorResponseWithCode'
+      summary: 更新會話
+      tags:
+      - Tenant/Session
+schemes:
+- http
+- https
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
